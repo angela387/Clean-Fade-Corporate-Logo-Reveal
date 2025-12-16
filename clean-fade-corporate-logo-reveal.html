@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Clean Fade Corporate Logo Reveal</title>
+<style>
+  :root{
+    --bg:#070a10;
+    --text:#eef2ff;
+    --muted:rgba(238,242,255,.72);
+    --accent:#FFD100;
+    --card:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.10);
+    --r:22px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:grid; place-items:center;
+    background:
+      radial-gradient(1000px 650px at 20% 15%, rgba(59,130,246,.14), transparent 60%),
+      radial-gradient(900px 600px at 85% 20%, rgba(255,209,0,.10), transparent 55%),
+      linear-gradient(180deg, #04060b, var(--bg));
+    color:var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue";
+  }
+
+  .stage{
+    width:min(920px, 92vw);
+    border:1px solid var(--border);
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border-radius:26px;
+    padding:48px 28px;
+    box-shadow: 0 30px 90px rgba(0,0,0,.55);
+    backdrop-filter: blur(10px);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* subtle light sweep */
+  .stage::before{
+    content:"";
+    position:absolute; inset:-40%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+    transform: rotate(18deg) translateX(-60%);
+    opacity:0;
+    animation: sweep 4.5s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes sweep{
+    0%{ opacity:0; transform: rotate(18deg) translateX(-60%); }
+    18%{ opacity:.35; }
+    55%{ opacity:.12; }
+    100%{ opacity:0; transform: rotate(18deg) translateX(85%); }
+  }
+
+  .hint{
+    display:inline-flex; align-items:center; gap:10px;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    font-weight:900;
+    font-size:12px;
+    color:rgba(238,242,255,.68);
+  }
+  .hint .pip{
+    width:10px;height:10px;border-radius:999px;background:rgba(255,209,0,.85);
+    box-shadow: 0 0 18px rgba(255,209,0,.35);
+  }
+
+  /* Logo container */
+  .logoBox{
+    margin:26px auto 0;
+    width:min(520px, 92%);
+    border-radius: var(--r);
+    background: rgba(0,0,0,.22);
+    border:1px solid rgba(255,255,255,.10);
+    padding:34px 24px 28px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* “Logo” (swap this for an image if you want) */
+  .logoMark{
+    display:inline-grid;
+    place-items:center;
+    width:78px; height:78px;
+    border-radius:18px;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,209,0,.35), transparent 55%),
+      radial-gradient(circle at 70% 60%, rgba(59,130,246,.25), transparent 55%),
+      linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow: 0 16px 50px rgba(0,0,0,.45);
+    opacity:0;
+    transform: translateY(10px) scale(.98);
+    animation: logoIn 1.05s cubic-bezier(.2,.9,.2,1) forwards;
+    animation-delay: .35s;
+    will-change: transform, opacity;
+  }
+  @keyframes logoIn{
+    0%{ opacity:0; transform: translateY(10px) scale(.98); }
+    70%{ opacity:1; transform: translateY(-1px) scale(1.01); }
+    100%{ opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .logoText{
+    margin:16px 0 0;
+    font-size: clamp(22px, 3.4vw, 34px);
+    font-weight:950;
+    letter-spacing:.01em;
+    opacity:0;
+    transform: translateY(8px);
+    animation: textIn .9s ease forwards;
+    animation-delay: .85s;
+  }
+  .tagline{
+    margin:10px auto 0;
+    max-width: 64ch;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+    opacity:0;
+    transform: translateY(8px);
+    animation: textIn .9s ease forwards;
+    animation-delay: 1.15s;
+  }
+  @keyframes textIn{
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* Clean outro fade (keeps it a real “reveal” clip) */
+  .fadeOut{
+    position:absolute;
+    inset:0;
+    background: linear-gradient(180deg, rgba(7,10,16,0), rgba(7,10,16,.55));
+    opacity:0;
+    animation: outro 4.5s ease forwards;
+    pointer-events:none;
+  }
+  @keyframes outro{
+    0%, 72%{ opacity:0; }
+    100%{ opacity:1; }
+  }
+
+  .controls{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+  }
+  button{
+    appearance:none; border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color: var(--text);
+    padding:10px 12px;
+    border-radius:12px;
+    font-weight:900;
+    cursor:pointer;
+  }
+  button.primary{
+    border-color: rgba(255,209,0,.28);
+    background: rgba(255,209,0,.14);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .stage::before, .logoMark, .logoText, .tagline, .fadeOut{ animation:none !important; }
+    .logoMark, .logoText, .tagline{ opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="hint"><span class="pip"></span> Clean Corporate Reveal</div>
+
+    <div class="logoBox">
+      <div class="logoMark" aria-hidden="true">
+        <!-- simple “mark” -->
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 12.5 10 16.5 18 7.5" stroke="rgba(238,242,255,.92)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="logoText">Clean Fade Corporate Logo Reveal</div>
+      <div class="tagline">A minimal logo + name fade-in with premium easing for corporate intros, presentations, and product videos.</div>
+
+      <div class="fadeOut"></div>
+    </div>
+
+    <div class="controls">
+      <button class="primary" id="replay">Replay</button>
+    </div>
+  </div>
+
+<script>
+  // Replay by cloning the stage node (restarts CSS animations reliably)
+  document.getElementById('replay').addEventListener('click', () => {
+    const stage = document.getElementById('stage');
+    const clone = stage.cloneNode(true);
+    stage.parentNode.replaceChild(clone, stage);
+    clone.querySelector('#replay').addEventListener('click', () => {
+      const s = document.getElementById('stage');
+      const c = s.cloneNode(true);
+      s.parentNode.replaceChild(c, s);
+    });
+  });
+</script>
+</body>
+</html>
+
